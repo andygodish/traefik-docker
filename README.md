@@ -22,6 +22,12 @@ for example,
 
 ![image](https://github.com/andygodish/traefik-docker/assets/33811239/217d53d6-351a-4902-8050-cfa3adb865a8)
 
+### Run 
+
+```
+docker compose up -d
+```
+
 
 ### Create Proxy Doccker Network
 
