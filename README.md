@@ -1,12 +1,33 @@
 # Traefik Proxy
 
+## Quickstart
+
 ```
 cp sample-docker-compose.yaml docker-compose.yaml
 ```
 
-I use Cloudflare as my DNS provider. This configuration is used to reach out to cloudflare to create a TLS certificate that I use within my network. 
+I use Cloudflare (CF) as my DNS provider. This configuration is used to reach out to cloudflare to create a TLS certificate that I use within my network. 
+
+Update your `docker-compose.yaml` to include environment variables for you CF account and DNS API Token (create this in CF).
+
+Make note of the labels and adjust accordingly.
+
+### Bootstrap Authentication and Password
+
+- [Follow this tutorial](https://technotim.live/posts/traefik-portainer-ssl/#generate-basic-auth-password)
+
+### Update the volumes to reflect your server's directory
+
+for example,
+
+![image](https://github.com/andygodish/traefik-docker/assets/33811239/217d53d6-351a-4902-8050-cfa3adb865a8)
 
 
+### Create Proxy Doccker Network
+
+```
+docket network create proxy
+```
 
 ---
 
