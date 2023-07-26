@@ -1,0 +1,128 @@
+http:
+ #region routers 
+  routers:
+    linda:
+      entryPoints:
+        - "https"
+      rule: "Host(`linda.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: linda
+    fred:
+      entryPoints:
+        - "https"
+      rule: "Host(`fred.lan.andyg.io`)"
+      middlewares: 
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: fred
+    john:
+      entryPoints:
+        - "https"
+      rule: "Host(`john.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: john
+    landing:
+      entryPoints:
+        - "https"
+      rule: "Host(`lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: landing
+    wiki:
+      entryPoints:
+        - "https"
+      rule: "Host(`wiki.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: wiki
+    wordpress:
+      entryPoints:
+        - "https"
+      rule: "Host(`blog.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: wordpress
+#endregion
+#region services
+  services:
+    linda:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.2.58:8006"
+        passHostHeader: true
+    fred:
+      loadBalancer: 
+        servers:
+          - url: "https://192.168.1.117:8006"
+        passHostHeader: true
+    john: 
+      loadBalancer:
+        servers:
+          - url: "https://192.168.2.104:8006"
+        passHostHeader: true
+    landing:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.159:32723"
+          - url: "http://192.168.2.80:32723"
+          - url: "http://192.168.2.151:32723"
+          - url: "http://192.168.2.188:32723"
+    wiki:
+      loadBalancer: 
+        servers: 
+          - url: "http://192.168.1.159:30319"
+          - url: "http://192.168.2.80:30319"
+          - url: "http://192.168.2.151:30319"
+          - url: "http://192.168.2.188:30319"
+    wordpress:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.159:32723"
+          - url: "http://192.168.2.80:32723"
+          - url: "http://192.168.2.151:32723"
+          - url: "http://192.168.2.188:32723"
+#endregion
+  middlewares:
+    https-redirectscheme:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+    default-headers:
+      headers:
+        frameDeny: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 15552000
+        customFrameOptionsValue: SAMEORIGIN
+        customRequestHeaders:
+          X-Forwarded-Proto: https
+
+    default-whitelist:
+      ipWhiteList:
+        sourceRange:
+        - "10.0.0.0/8"
+        - "192.168.0.0/16"
+        - "172.16.0.0/12"
+
+    secured:
+      chain:
+        middlewares:
+        - default-whitelist
+        - default-headers

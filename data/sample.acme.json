@@ -1,0 +1,31 @@
+{
+  "cloudflare": {
+    "Account": {
+      "Email": "agodish18@gmail.com",
+      "Registration": {
+        "body": {
+          "status": "valid",
+          "contact": [
+            "mailto:agodish18@gmail.com"
+          ]
+        },
+        "uri": "https://acme-v02.api.letsencrypt.org/acme/acct/898489147"
+      },
+      "PrivateKey": "***********",
+      "KeyType": "4096"
+    },
+    "Certificates": [
+      {
+        "domain": {
+          "main": "lan.andyg.io",
+          "sans": [
+            "*.lan.andyg.io"
+          ]
+        },
+        "certificate": "your-cert"",
+        "key": "your-key",
+        "Store": "default"
+      }
+    ]
+  }
+}
