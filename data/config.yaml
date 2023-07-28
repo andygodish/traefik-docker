@@ -135,7 +135,7 @@ http:
     qnap:
       loadBalancer:
         servers:
-          - url: "https://192.168.1.55"
+          - url: "https://192.168.1.55:8443"
         passHostHeader: true
 #endregion
   middlewares:
