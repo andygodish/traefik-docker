@@ -74,6 +74,15 @@ http:
         - https-redirectscheme
       service: udmpro
       tls: {}
+    qnap:
+      entryPoints:
+        - "https"
+      rule: "Host(`qnap.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      service: qnap
+      tls: {}
 #endregion
 #region services
   services:
@@ -122,6 +131,11 @@ http:
       loadBalancer:
         servers:
           - url: "https://192.168.1.1"
+        passHostHeader: true
+    qnap:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.1.55"
         passHostHeader: true
 #endregion
   middlewares:
