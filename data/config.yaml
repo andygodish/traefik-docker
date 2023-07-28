@@ -55,6 +55,25 @@ http:
         - https-redirectscheme
       tls: {}
       service: wordpress
+    pihole:
+      entryPoints:
+        - "https"
+      rule: "Host(`pihole.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - addprefix-pihole
+      service: pihole
+      tls: {}
+    udmpro:
+      entryPoints:
+        - "https"
+      rule: "Host(`udmpro.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      service: udmpro
+      tls: {}
 #endregion
 #region services
   services:
@@ -66,12 +85,12 @@ http:
     fred:
       loadBalancer: 
         servers:
-          - url: "https://192.168.1.117:8006"
+          - url: "https://192.168.2.104:8006"
         passHostHeader: true
     john: 
       loadBalancer:
         servers:
-          - url: "https://192.168.2.104:8006"
+          - url: "https://192.168.1.117:8006"
         passHostHeader: true
     landing:
       loadBalancer:
@@ -94,6 +113,16 @@ http:
           - url: "http://192.168.2.80:32723"
           - url: "http://192.168.2.151:32723"
           - url: "http://192.168.2.188:32723"
+    pihole:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.14:8080"
+        passHostHeader: true
+    udmpro:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.1.1"
+        passHostHeader: true
 #endregion
   middlewares:
     https-redirectscheme:
@@ -120,6 +149,10 @@ http:
         - "10.0.0.0/8"
         - "192.168.0.0/16"
         - "172.16.0.0/12"
+
+    addprefix-pihole:
+      addPrefix:
+        prefix: "/admin"
 
     secured:
       chain:
