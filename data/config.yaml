@@ -81,6 +81,7 @@ http:
       middlewares:
         - default-headers
         - https-redirectscheme
+        - addprefix-qnap
       service: qnap
       tls: {}
 #endregion
@@ -167,6 +168,9 @@ http:
     addprefix-pihole:
       addPrefix:
         prefix: "/admin"
+    addprefix-qnap:
+      addPrefix:
+        prefix: "/cgi-bin"
 
     secured:
       chain:
