@@ -62,6 +62,7 @@ http:
       middlewares:
         - default-headers
         - https-redirectscheme
+        - addprefix-pihole
       service: pihole
       tls: {}
     udmpro:
@@ -72,15 +73,6 @@ http:
         - default-headers
         - https-redirectscheme
       service: udmpro
-      tls: {}
-    qnap:
-      entryPoints:
-        - "https"
-      rule: "Host(`qnap.lan.andyg.io`)"
-      middlewares:
-        - default-headers
-        - https-redirectscheme
-      service: qnap
       tls: {}
 #endregion
 #region services
@@ -130,11 +122,6 @@ http:
       loadBalancer:
         servers:
           - url: "https://192.168.1.1"
-        passHostHeader: true
-    qnap:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.1.55:8080"
         passHostHeader: true
 #endregion
   middlewares:
