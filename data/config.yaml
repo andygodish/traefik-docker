@@ -65,6 +65,16 @@ http:
         - addprefix-pihole
       service: pihole
       tls: {}
+    pihole2:
+      entryPoints:
+        - "https"
+      rule: "Host(`pihole2.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+        - addprefix-pihole
+      service: pihole
+      tls: {}
     udmpro:
       entryPoints:
         - "https"
@@ -117,6 +127,11 @@ http:
       loadBalancer:
         servers:
           - url: "http://192.168.1.14"
+        passHostHeader: true
+    pihole2:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.11:8080"
         passHostHeader: true
     udmpro:
       loadBalancer:
