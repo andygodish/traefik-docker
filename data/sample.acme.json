@@ -22,7 +22,7 @@
             "*.lan.andyg.io"
           ]
         },
-        "certificate": "your-cert"",
+        "certificate": "your-cert",
         "key": "your-key",
         "Store": "default"
       }
