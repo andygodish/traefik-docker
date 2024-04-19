@@ -1,15 +1,51 @@
 http:
  #region routers 
   routers:
-    linda:
+    landing:
       entryPoints:
         - "https"
-      rule: "Host(`linda.lan.andyg.io`)"
+      rule: "Host(`lan.andyg.io`)"
       middlewares:
         - default-headers
         - https-redirectscheme
       tls: {}
-      service: linda
+      service: landing
+    selenium-hub:
+      entryPoints:
+        - "https"
+      rule: "Host(`selenium-hub.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: selenium-hub
+    appi:
+      entryPoints:
+        - "https"
+      rule: "Host(`appi.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: appi
+    wikijs:
+      entryPoints:
+        - "https"
+      rule: "Host(`wikijs.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: wikijs
+    linda:
+      entryPoints:
+        - "https"
+      rule: "Host(`kelly.lan.andyg.io`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: kelly
     fred:
       entryPoints:
         - "https"
@@ -28,33 +64,6 @@ http:
         - https-redirectscheme
       tls: {}
       service: john
-    landing:
-      entryPoints:
-        - "https"
-      rule: "Host(`lan.andyg.io`)"
-      middlewares:
-        - default-headers
-        - https-redirectscheme
-      tls: {}
-      service: landing
-    wiki:
-      entryPoints:
-        - "https"
-      rule: "Host(`wiki.lan.andyg.io`)"
-      middlewares:
-        - default-headers
-        - https-redirectscheme
-      tls: {}
-      service: wiki
-    wordpress:
-      entryPoints:
-        - "https"
-      rule: "Host(`blog.lan.andyg.io`)"
-      middlewares:
-        - default-headers
-        - https-redirectscheme
-      tls: {}
-      service: wordpress
     pihole:
       entryPoints:
         - "https"
@@ -87,10 +96,31 @@ http:
 #endregion
 #region services
   services:
-    linda:
+    landing:
       loadBalancer:
         servers:
-          - url: "https://192.168.1.58:8006"
+          - url: "http://192.168.1.78:31042"
+          - url: "http://192.168.1.223:31042"
+        passHostHeader: true
+    selenium-hub: 
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.78:31040"
+        passHostHeader: true
+    appi: 
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.78:31787"
+        passHostHeader: true
+    wikijs:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.90"
+        passHostHeader: true
+    kelly:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.1.87:8006"
         passHostHeader: true
     fred:
       loadBalancer: 
@@ -102,27 +132,6 @@ http:
         servers:
           - url: "https://192.168.1.117:8006"
         passHostHeader: true
-    landing:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.1.159:32723"
-          - url: "http://192.168.2.80:32723"
-          - url: "http://192.168.2.151:32723"
-          - url: "http://192.168.2.188:32723"
-    wiki:
-      loadBalancer: 
-        servers: 
-          - url: "http://192.168.1.159:30319"
-          - url: "http://192.168.2.80:30319"
-          - url: "http://192.168.2.151:30319"
-          - url: "http://192.168.2.188:30319"
-    wordpress:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.1.159:32723"
-          - url: "http://192.168.2.80:32723"
-          - url: "http://192.168.2.151:32723"
-          - url: "http://192.168.2.188:32723"
     pihole:
       loadBalancer:
         servers:
